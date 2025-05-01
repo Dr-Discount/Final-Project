@@ -1,8 +1,6 @@
 #include "raylib.h"
 
-#include "../food.h"
-#include "../build/build_files/snake.h"
-#include "../build/build_files/game.h"
+#include "../game.h"
 #include "resource_dir.h"	
 #include "raymath.h"
 

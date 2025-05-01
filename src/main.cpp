@@ -27,7 +27,7 @@ int main() {
 	SetTargetFPS(60);
 
 	Game game = Game();
-	//hmm
+	
 	while (WindowShouldClose() == false) {
 		if (IsKeyPressed(KEY_ESCAPE)) {
 			CloseWindow();

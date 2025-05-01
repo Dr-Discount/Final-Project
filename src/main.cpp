@@ -35,13 +35,11 @@ int main() {
 			return 0;
 		}
 
-		if (IsKeyPressed(KEY_SPACE)) {
-
-		}
 		BeginDrawing();
 
 		if (eventTriggered(0.2)) {
 			game.Update();
+			game.CheckCollisionWithFood();
 		}
 
 		if ((IsKeyPressed(KEY_UP) || IsKeyPressed(KEY_W)) && game.snake.direction.y != 1) {

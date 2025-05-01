@@ -1,6 +1,6 @@
 #include "raylib.h"
 
-#include "../game.h"
+#include "game.h"
 #include "resource_dir.h"	
 #include "raymath.h"
 

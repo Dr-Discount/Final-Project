@@ -1,55 +1,72 @@
-/*
-Raylib example file.
-This is an example main file for a simple raylib project.
-Use this as a starting point or replace it with your code.
-
-by Jeffery Myers is marked with CC0 1.0. To view a copy of this license, visit https://creativecommons.org/publicdomain/zero/1.0/
-
-*/
-
 #include "raylib.h"
 
-#include "resource_dir.h"	// utility header for SearchAndSetResourceDir
+#include "../build/build_files/food.h"
+#include "../build/build_files/snake.h"
+#include "../build/build_files/game.h"
+#include "resource_dir.h"	
+#include "raymath.h"
 
-int main ()
-{
-	// Tell the window to use vsync and work on high DPI displays
+const int screenWidth = 750;
+const int screenHeight = 750;
+
+int cellSize = 30;
+int cellCount = 25;
+
+double lastUpdateTime = 0;
+
+bool eventTriggered(double interal) {
+	double currentTime = GetTime();
+	if (currentTime - lastUpdateTime > interal) {
+		lastUpdateTime = currentTime;
+		return true;
+	}
+	return false;
+}
+
+int main() {
 	SetConfigFlags(FLAG_VSYNC_HINT | FLAG_WINDOW_HIGHDPI);
+	InitWindow(screenWidth, screenHeight, "Retro Snake");
+	SetTargetFPS(60);
 
-	// Create the window and OpenGL context
-	InitWindow(1280, 800, "Hello Raylib");
+	Game game = Game();
 
-	// Utility function from resource_dir.h to find the resources folder and set it as the current working directory so we can load from it
-	SearchAndSetResourceDir("resources");
+	while (WindowShouldClose() == false) {
+		if (IsKeyPressed(KEY_ESCAPE)) {
+			CloseWindow();
+			return 0;
+		}
 
-	// Load a texture from the resources directory
-	Texture wabbit = LoadTexture("wabbit_alpha.png");
-	//ASDSAD
-	
-	// game loop
-	while (!WindowShouldClose())		// run the loop untill the user presses ESCAPE or presses the Close button on the window
-	{
-		// drawing
+		if (IsKeyPressed(KEY_SPACE)) {
+
+		}
 		BeginDrawing();
 
-		// Setup the back buffer for drawing (clear color and depth buffers)
-		ClearBackground(BLACK);
+		if (eventTriggered(0.2)) {
+			game.Update();
+		}
 
-		// draw some text using the default font
-		DrawText("Hello Raylib", 200,200,20,WHITE);
+		if (IsKeyPressed(KEY_UP) || IsKeyPressed(KEY_W) && snake.direction.y != 1) {
+			snake.direction = { 0, -1 };
+		}
+		if (IsKeyPressed(KEY_DOWN) || IsKeyPressed(KEY_S) && snake.direction.y != -1) {
+			snake.direction = { 0, 1 };
+		}
+		if (IsKeyPressed(KEY_LEFT) || IsKeyPressed(KEY_A) && snake.direction.x != 1) {
+			snake.direction = { -1, 0 };
+		}
+		if (IsKeyPressed(KEY_RIGHT) || IsKeyPressed(KEY_D) && snake.direction.x != -1) {
+			snake.direction = { 1, 0 };
+		}
 
-		// draw our texture to the screen
-		DrawTexture(wabbit, 400, 200, WHITE);
-		
-		// end the frame and get ready for the next one  (display frame, poll input, etc...)
+		ClearBackground(GREEN);
+
+
+		game.Draw();
+
+
 		EndDrawing();
 	}
 
-	// cleanup
-	// unload our texture so it can be cleaned up
-	UnloadTexture(wabbit);
-
-	// destroy the window and cleanup the OpenGL context
 	CloseWindow();
 	return 0;
 }

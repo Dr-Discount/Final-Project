@@ -26,7 +26,6 @@ public:
         Vector2 pos = { x, y };
 
         while (comparePosition(pos, snakeBody)) {
-			std::cout << "Position already occupied by snake, generating new position..." << std::endl;
             float x = GetRandomValue(0, cellCount - 1);
             float y = GetRandomValue(0, cellCount - 1);
             pos = { x, y };
